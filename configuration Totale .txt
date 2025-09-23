@@ -1,0 +1,130 @@
+SW-0 :
+
+en
+conf t
+vlan 10
+name HR
+vlan 20
+name GS
+vlan 30
+name IT
+exit
+int range f0/3-7
+switchport mode acc
+switchport acc vlan 10
+exit
+int range f0/8-14
+switchport mode acc
+switchport acc vlan 20
+exit
+int range f0/15-21
+switchport mode acc
+switchport acc vlan 30
+exit
+int f0/1
+switchport mode trunk
+exit
+int f0/2
+switchport mode trunk
+exit
+--------------------------------------------------------------
+SW-1 :
+
+en
+conf t
+vlan 10
+name HR
+vlan 20
+name GS
+vlan 30
+name IT
+exit
+int range f0/3-7
+switchport mode acc
+switchport acc vlan 10
+exit
+int range f0/8-14
+switchport mode acc
+switchport acc vlan 20
+exit
+int range f0/15-21
+switchport mode acc
+switchport acc vlan 30
+exit
+int f0/1
+switchport mode trunk
+exit
+int f0/2
+switchport mode trunk
+exit
+-------------------------------------------
+SW-2 :
+
+en
+conf t
+vlan 10
+name HR
+vlan 20
+name GS
+vlan 30
+name IT
+exit
+int range f0/3-7
+switchport mode acc
+switchport acc vlan 10
+exit
+int range f0/8-14
+switchport mode acc
+switchport acc vlan 20
+exit
+int range f0/15-21
+switchport mode acc
+switchport acc vlan 30
+exit
+int f0/1
+switchport mode trunk
+exit
+-------------------------------------------
+Router 1 :
+
+en
+conf t
+int g0/0
+no ip add 
+no sh
+exit
+int g0/0.10
+encapsulation dot1Q 10
+ip add 192.168.10.1 255.255.255.0
+int g0/0.20
+encapsulation dot1Q 20
+ip add 192.168.20.1 255.255.255.0
+exit
+int g0/0.30
+encapsulation dot1Q 30
+ip add 192.168.30.1 255.255.255.0
+exit
+
+ip DHCP pool DHCP_VLAN10
+network 192.168.10.0 255.255.255.0
+default-router 192.168.10.1
+dns-server 8.8.8.8
+domain-name ista.ma
+ip dhcp excluded-add 192.168.10.1
+exit
+ip DHCP pool DHCP_VLAN20
+network 192.168.20.0 255.255.255.0
+default-router 192.168.20.1
+dns-server 8.8.8.8
+domain-name ista.ma
+ip dhcp excluded-add 192.168.20.1
+exit
+ip DHCP pool DHCP_VLAN30
+network 192.168.30.0 255.255.255.0
+default-router 192.168.30.1
+dns-server 8.8.8.8
+domain-name ista.ma
+ip dhcp excluded-add 192.168.30.1
+exit
+
+--------------------------------------------
